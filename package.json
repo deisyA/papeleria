@@ -1,7 +1,7 @@
 {
   "name": "practiceLogin",
   "version": "1.0.0",
-  "description": "",
+  "description": "Descripción para Git",
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/",
