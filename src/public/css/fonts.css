@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Odibee+Sans&family=Pacifico&family=Permanent+Marker&family=Staatliches&family=Syne+Mono&display=swap');
+
+
+@font-face {
+    font-family: 'truecrimes';
+    src: url(../fonts/true-crimes.ttf);
+}
+
+
+.use{
+    font-family: 'Odibee Sans', cursive;
+    font-family: 'Pacifico', cursive;
+    font-family: 'Permanent Marker', cursive;
+    font-family: 'Staatliches', cursive;
+    font-family: 'Syne Mono', monospace;
+}
+
+.font-permanentmarker{
+    font-family: 'Permanent Marker', cursive;
+}
+
+
+.font-truecrimes{
+    font-family: 'truecrimes';  
+}
+
+.letterspace2{
+    letter-spacing: 2px
+}

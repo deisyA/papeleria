@@ -1,0 +1,221 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    height: 100px;
+    background-color: rgba(61, 61, 61, 0.733);
+
+
+}
+/*HEADER*/
+/*BANER NAV*/
+
+
+nav{
+    height: 120px;
+    /*padding: 20px 0 0 0;*/
+      
+}
+
+.back-nav{
+
+   background-image: url("../img/19187709.jpg");    
+    background-repeat: no-repeat;
+   background-size: cover;
+   
+}
+
+.navbar.navbar-expand-lg.navbar-dark.back-nav.init.scrolling-navbar.fixed-top{
+
+    background-color: rgba(0, 0, 0, 0.527); 
+    background-image: none;
+     background-repeat: no-repeat;
+    background-size: cover;
+    
+ }
+
+.top-nav-collapse{
+    background: rgba(68, 188, 209, 0.8) !important;
+    
+}
+
+.top-nav-collapse .textnav2{
+    text-shadow: 2px 2px 2px blue  !important;
+  }
+
+
+.navbar.scrolling-navbar {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.textnav{
+    text-shadow: 2px 2px 2px blue;
+  }
+
+  .textnav2{
+    text-shadow: 2px 2px 2px rgb(22, 182, 155);
+  }
+
+.loguser img, .logoin img, .logoout img{
+    vertical-align: baseline;
+}
+
+li.item-reg{
+    border: 2px;
+    border-color: antiquewhite;
+    z-index: -1;
+}
+
+
+/*start*/
+.start{
+    /*background-image: url("https://conceptodefinicion.de/wp-content/uploads/2018/03/Papeleria.jpg");*/
+    background-image: url("https://www.mccourier.com/wp-content/uploads/2021/04/STATIONERY.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover; 
+    height: 500px;
+    align-items: flex-start;
+    display: flex;
+
+}
+
+.container-start{
+
+    /*background-color: greenyellow;*/
+    width: 50%;
+
+}
+
+.container-img{
+    margin-right: 180px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    width: 45%;
+    /*background-color: indianred;*/
+}
+
+.start-img{
+    height: 250px;
+    width: 100%;
+    filter: drop-shadow(0 4px 8px rgba(189, 214, 96, 0.966)); 
+    
+    transition: 0.5s;
+}
+
+.start-img:hover{
+    transform: translateY(-10px);
+}
+
+.separation{
+    height: 100px;
+    width: 100%;
+    align-items: baseline;
+
+    
+}
+
+
+.row-platforms{
+    height: 600px;
+    background-image: url("../img/grunge_low_poly_background_design_0501.jpg") ;
+    position: relative;
+}
+
+.col-platforms{
+    background-color: indigo;
+    height: 100%;
+    margin: 20px 0 20px 0;
+    
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    display: flex;
+
+  
+}
+
+.col-serv{
+    background-color: lawngreen;
+    width: 20%;
+    margin: 20px 20px ;
+    padding: 10px;
+    align-items: center;
+    position: relative;
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.cont-serv-img{
+    background-color: lightgrey;
+    width: 100%;
+    margin: 10px ;
+    padding: 10px;
+    position: absolute;
+    flex-wrap: wrap;
+    display: flex;
+    
+}
+
+.cont-serv-cont{
+    background-color: burlywood;
+    
+    margin: 10px ;
+    padding: 10px;
+}
+
+/*
+.platforms{
+    background-image: url("../img/5356182.jpg") ;
+    
+    background-size: cover ;
+    background-position: center center !important;
+    width: 100%;
+    height: 500px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+
+}
+
+.container-plat{
+    width: 100%;
+    height: 80%;
+    padding: 0 0 5% 0;
+    filter: drop-shadow(0 4px 8px rgba(189, 214, 96, 0.966)); 
+    align-items: center;
+
+}
+
+.carouselExampleCaptions{
+    background-image: url("../img/5356182.jpg") ;
+    
+
+}
+
+.carousel-inner img {
+    object-fit: scale-down;
+    height: 100vh;
+    width: 100%;
+    
+  }
+
+h2{
+    background-color: gold;
+
+}
+*/
+.carousel-inner{
+    background-image: url("../img/5356182.jpg") ;
+    background-size: cover ;
+    background-position: center center !important;
+}
+
+footer .container{
+    width: 100%;
+
+}
