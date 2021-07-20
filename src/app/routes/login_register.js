@@ -51,6 +51,74 @@ app.get('/', (req, res) => {
     })
 
 
+//ruta de pruebas /**Debe conectarse a la base de datos inventario para funcionar */
+app.get('/inventory',(req,res)=>{
+    connection.query("SELECT * FROM repaso", (err, result) =>{
+        if (err){
+            res.send(err)
+        }else{
+            console.log(result);
+            res.render('../views/inventoryPruebas.ejs', {
+                inventario: result
+            });
+
+        }
+    })
+    //
+})
+
+app.get('/employee',(req,res)=>{
+    connection.query("SELECT * FROM empleado", (err, result) =>{
+        if (err){
+            res.send(err)
+        }else{
+            console.log(result);
+            res.render('../views/employee.ejs', {
+                employee: result
+            });
+
+        }
+    })
+    //
+})
+
+app.get('/users',(req,res)=>{
+    connection.query("SELECT * FROM usuario", (err, result) =>{
+        if (err){
+            res.send(err)
+        }else{
+            console.log(result);
+            res.render('../views/users.ejs', {
+                users: result
+            });
+
+        }
+    })
+    //
+})
+
+app.get('/product',(req,res)=>{
+    connection.query("SELECT * FROM producto", (err, resultp) =>{
+        if (err){
+            res.send(err)
+        }else{
+            console.log(resultp);
+            connection.query("SELECT * FROM existencia", (error, resulte) =>{
+                if (error){
+                    res.send(error)
+                }else{
+                    console.log(resulte);            
+                    res.render('../views/products.ejs', {
+                    product: resultp,
+                    existence: resulte
+
+                    });
+                }
+            })
+        }
+    })
+})
+
     //15 configurar método register (action del form register)
 //como se va a usar bcriptjs se debe usar acá asinc-await
     app.post('/register', async (req, res) => {

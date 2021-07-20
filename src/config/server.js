@@ -17,6 +17,7 @@ app.set('view engine','ejs');
 app.set('views', path.join(__dirname,'../app/views'));
 
 //middlewarless - files by form reception
+//extended:false --datos planos solamente
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 
