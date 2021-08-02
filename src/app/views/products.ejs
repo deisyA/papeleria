@@ -6,45 +6,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="shortcut icon" href="resources/img/P.png">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/estilo.css">
+    <link rel="stylesheet" href="resources/css/fonts.css">
+
+
 </head>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark back-nav init scrolling-navbar fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/resources/img/P.png" alt="" width="90" class="d-inline-block align-text-top">
+                <div class="mask rainy-ashville-gradient"></div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!---->
+                <ul class="navbar-nav fs-5 me-auto mb-lg-0 ">
+                    <li class="nav-item font-permanentmarker letterspace2">
+                        <a class="nav-link" aria-current="page" href="#platforms">
+                            <div class="textnav2">                      
+                            <!---  Plataformas-->
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item font-permanentmarker letterspace2">
+                        
+                        <a class="nav-link" href="#contact">
+                            <div class="textnav2">                    
+                               <!-- Contacto -->
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link font-permanentmarker letterspace2" href="#" >
+                            <div class="textnav2">                  
+                            <!--Redes -->
+                            </div>
+                        </a>
+                    </li>
+                </ul> 
+       
+                <ul class="nav navbar-nav nav-flex-icons ml-auto">     
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <span style="font-size: 3em; ">
+                            <div class="loguser">
+                            <img src="https://image.flaticon.com/icons/png/128/1276/1276491.png" alt="" height="50">
+                            <h5>Volver</h5>
+                            </div>
+                        </span>
+                        </a>
+                    </li>           
+            
+                </ul>
+                  
+            </div>
+        </div>        
+    </nav>
+
+
+</header>
 <body>
+    <!--
     <nav class="navbar navar.dark bg-ligth">
         <a href="" class="navbar-brand mx-auto" >Productos</a>
-    </nav>
-    <div class="row">
-        <div class="col-md-6 mt-6 text-center">
-            <table class="table table-success table-striped">
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Referencia</th>
-                    <th>Marca</th>
-                    <th>Color</th>
-                    <th>Presentación</th>
-                    <th>Peso</th>
-                    <th>Tipo</th>
-                    <th>Tamaño</th>
-                    <th>Existencias</th>
-                    
-                </tr>
-                <% for (let i=0; i < product.length; i++) { %>
-                    <tr>
-                        <td><%= product[i].id_producto %></td>
-                        <td><%= product[i].nombre_producto %></td>
-                        <td><%= product[i].referencia_producto %></td>
-                        <td><%= product[i].marca_producto %></td>
-                        <td><%= product[i].color_producto %></td>
-                        <td><%= product[i].presentacion %></td>
-                        <td><%= product[i].peso %></td>
-                        <td><%= product[i].tipo_medida %></td>
-                        <td><%= product[i].tamaño %></td>
-                        <!-- <td><%= existence[i].cantidad_lote %></td> -->
-                    </tr>
+    </nav>-->
+    <main>
+        <div class="login-box product">
+            <!--
+            <img class="logoP" src="resources/img/P.png"  alt="Logo de P">-->
+            <h1>PRODUCTOS</h1>
+            <div class="row">
+                <div class="col-md-6 mt-6 text-center">
+                    <table class="table table-success table-striped">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Referencia</th>
+                            <th>Marca</th>
+                            <th>Color</th>
+                            <th>Presentación</th>
+                            <th>Peso</th>
+                            <th>Tipo</th>
+                            <th>Tamaño</th>
+                            <th>Existencias</th>
+                            
+                        </tr>
+                        <% for (let i=0; i < product.length; i++) { %>
+                            <tr>
+                                <td><%= product[i].id_producto %></td>
+                                <td><%= product[i].nombre_producto %></td>
+                                <td><%= product[i].referencia_producto %></td>
+                                <td><%= product[i].marca_producto %></td>
+                                <td><%= product[i].color_producto %></td>
+                                <td><%= product[i].presentacion %></td>
+                                <td><%= product[i].peso %></td>
+                                <td><%= product[i].tipo_medida %></td>
+                                <td><%= product[i].tamaño %></td>
+                                <!-- <td><%= existence[i].cantidad_lote %></td> -->
+                            </tr>
 
-                <% } %>
-            </table>
+                        <% } %>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
+
 
    
 

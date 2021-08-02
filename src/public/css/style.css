@@ -130,6 +130,10 @@ footer .redes a{
     font-family: sans-serif;
 }
 
+.login-box.product{
+    width: 80%;
+}
+
 .login-box .logoP {
     width: 110px;
     height: 110px;
