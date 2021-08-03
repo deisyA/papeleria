@@ -26,6 +26,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!---->
+
                 <ul class="navbar-nav fs-5 me-auto mb-lg-0 ">
                     <li class="nav-item font-permanentmarker letterspace2">
                         <a class="nav-link" aria-current="page" href="#platforms">
@@ -50,7 +51,25 @@
                         </a>
                     </li>
                 </ul> 
-       
+                <a class="nav-link" href="newproduct">
+                    <div class="textnav2">                    
+                        Crear nuevo<br>
+                        producto
+                    </div>
+                </a>
+                <a class="nav-link" href="newin">
+                    <div class="textnav2">                    
+                        Crear nueva<br>
+                        entrada
+                    </div>
+                </a>
+                <a class="nav-link" href="newout">
+                    <div class="textnav2">                    
+                        Crear nueva<br>
+                        salida
+                    </div>
+                </a>
+                
                 <ul class="nav navbar-nav nav-flex-icons ml-auto">     
                     <li class="nav-item">
                         <a href="/" class="nav-link">
@@ -66,6 +85,7 @@
                 </ul>
                   
             </div>
+            
         </div>        
     </nav>
 
@@ -108,7 +128,7 @@
                                 <td><%= product[i].peso %></td>
                                 <td><%= product[i].tipo_medida %></td>
                                 <td><%= product[i].tamaño %></td>
-                                <!-- <td><%= existence[i].cantidad_lote %></td> -->
+                                <td><%= existence[i].cantidad_lote %></td>
                             </tr>
 
                         <% } %>
