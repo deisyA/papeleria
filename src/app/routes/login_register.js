@@ -107,16 +107,29 @@ app.get('/product',(req,res)=>{
                 if (error){
                     res.send(error)
                 }else{
-                    console.log(resulte);            
-                    res.render('../views/products.ejs', {
-                    product: resultp,
-                    existence: resulte
-
-                    });
+                    console.log(resulte); 
+                    connection.query("SELECT * FROM entrada_producto", (error, resultep) =>{
+                        if (error){
+                            res.send(error)
+                        }else{
+                            console.log(resultep);  
+                            res.render('../views/products.ejs', {
+                                product: resultp,
+                                existence: resulte,
+                                in_product: resultep   
+                            });
+                     
+                        }
+                    })
                 }
             })
         }
     })
+})
+
+app.get('/newproduct',(req,res)=>{
+    res.render('../views/newproduct.ejs');
+
 })
 
     //15 configurar método register (action del form register)
@@ -175,6 +188,55 @@ app.get('/product',(req,res)=>{
     
     });
 
+    //post nuevo producto
+    app.post('/newproduct', async (req, res) => {
+        //captura de campos (también puede ser crear un objeto y pasar los valores)
+        const name = req.body.name;
+        const ref = req.body.ref;
+        const trademark = req.body.trademark;
+        const color = req.body.color;
+        const presentation = req.body.presentation;
+        const weigth = req.body.weigth;
+        const type = req.body.type;
+        const size = req.body.size;
+        const description = req.body.description;
+        const words = req.body.words;
+        const creator = req.body.creator;
+        
+            //insertar datos Guardándolos en un objeto 
+            connection.query('INSERT INTO producto SET ?', {
+                nombre_producto: name,
+                referencia_producto : ref,
+                marca_producto: trademark,
+                color_producto: color,
+                presentacion: presentation,
+                //peso: weigth,
+                tipo_medida: type,
+                tamaño: size,
+                descripcion_producto: description,
+                palabras_clave: words,
+                creador_registro: creator
+            }, async (error, results) => {
+                if (error) {
+                    console.log(error)
+                } else {
+                    //configuracion de alerta de sweetalert
+                    //debe haberser insertado el script en register
+    
+                    res.render('../views/products.ejs', {
+                        alert: true,
+                        alertTitle: "Registro",
+                        alertMessage: "¡Nuevo producto creado!",
+                        alertIcon: "success",
+                        showConfirmButton: true,
+                        timer: 1500,
+                        ruta: ''
+                        //se referencian estos valores en el ejs register
+                    });
+                }
+            })
+    
+    });
 
 //16 config método autenticación(/auth en el action del ejs login)
 app.post('/auth', async (req, res) => {
@@ -223,56 +285,7 @@ app.post('/auth', async (req, res) => {
 });
 
 
-    //Solicitudes post de Login
-/*
-    app.post('/auth', async(req,res) =>{
-        const{user,pass} = req.body;
-         let passwordHaash = await bcryptjs.hash(pass,8);
- 
- 
-        if (user && pass){
-             connection.query('Select * from users where user=?', [user], async(err,results)=>{
-                 console.log(results);
-                 if(results.length===0 || !(await bcryptjs.compare(pass,results[0].pass))){
-                  res.render('../views/login.ejs',{
-                    alert:true,
-                    alertTitle:"Error",
-                    alertMessage:"Usuario y/o contraseña incorrectas",
-                    alertIcon:"error",
-                    showConfirmButton:false,
-                    timer:false,
-                    ruta:'/login'
-                 });
-                }else{
-                    req.session.loggedin = true;
-                    req.session.name = results[0].name
-                    res.render('../views/login.ejs',{
-                        alert:true,
-                        alertTitle:"Conexion Exitosa",
-                        alertMessage:"Login Correcto",
-                        alertIcon:"success", 
-                        showConfirmButton:false, 
-                        timer: 15000, 
-                        ruta:'/'
-                  });
-                }
-            })
-         }
-     })
-
-    /* app.post('/auth', async(req,res)=>{
-        const {user,pass} = req.body;
-        if(user && pass){
-            connection.query("SELECT * FROM users WHERE user= ?", [user], async(error,result)=>{
-                console.log(result);
-                if(result.length===0 || !(await bcriptjs.compare(pass,result[0].pass))){
-                    res.send("Datos erroneos");
-                }else{
-                    res.send("Ingreso válido");
-                }
-            })
-        }
-    })*/
+   
 
 
 }
