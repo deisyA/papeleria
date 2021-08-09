@@ -113,6 +113,7 @@ app.get('/product',(req,res)=>{
                         if (error){
                             res.send(error)
                         }else{
+                            //console.log("inicio registros entrada producto**********")
                             console.log(resultep);  
                             res.render('../views/products.ejs', {
                                 product: resultp,
@@ -295,7 +296,58 @@ app.get('/newout',(req,res)=>{
     
     });
 
+    //post nuevo producto al inventario
+    app.post('/newin', async (req, res) => {
+        //captura de campos (también puede ser crear un objeto y pasar los valores)
+        const id_product = req.body.id_product;
+        const id_invoice = req.body.id_invoice;
+        const concept = req.body.concept;
+        const cant = req.body.cant;
+        const warranty = req.body.warranty;
+        const expitation = req.body.expitation;
+        const cost = req.body.cost;
+        const percent = req.body.percent; 
+        const creator = req.body.creator;
+            connection.query('INSERT INTO entrada_producto SET ?', {
+                id_producto: id_product,
+                id_factura : id_invoice,
+                concepto_entrada: concept,
+                cantidad_entrada: cant,
+                garantia: warranty,
+                vencimiento: expitation,
+                costo: cost,
+                porcentaje_ganancia: percent,
+                creador_registro: creator
+            }, async (error, results) => {
+                if (error) {
+                    console.log(error)
+                } else {                        
+                    connection.query("SELECT id_entrada_producto FROM entrada_producto", (error, resultep) =>{
+                        if (error){
+                            res.send(error)
+                        }else{                                                        
+                            console.log(resultep);  
+                            console.log(resultep[resultep.length-1].id_entrada_producto)
+                            last_product: resultep 
+                            connection.query('INSERT INTO existencia SET ?', {
+                            id_entrada_producto: resultep[resultep.length-1].id_entrada_producto,
+                            cantidad_lote: cant 
+                            })
 
+                            res.render('../views/newin.ejs', {
+                                alert: true,
+                                alertTitle: "Registro",
+                                alertMessage: "¡Nuevos productos en el inventario!",
+                                alertIcon: "success",
+                                showConfirmButton: true,
+                                timer: 4000,
+                                ruta: '' 
+                            });                     
+                        }
+                    });                   
+                }
+            })    
+    });
 
 
 //16 config método autenticación(/auth en el action del ejs login)
