@@ -2,9 +2,9 @@
   "name": "practiceLogin",
   "version": "1.0.0",
   "description": "Descripción para Git",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/",
+    "start": "src/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
