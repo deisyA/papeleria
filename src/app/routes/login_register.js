@@ -97,6 +97,7 @@ app.get('/users',(req,res)=>{
     //
 })
 
+
 app.get('/product',(req,res)=>{
     connection.query("SELECT * FROM producto", (err, resultp) =>{
         if (err){
@@ -131,6 +132,23 @@ app.get('/newproduct',(req,res)=>{
     res.render('../views/newproduct.ejs');
 
 })
+
+app.get('/invoice',(req,res)=>{
+    res.render('../views/invoice.ejs');
+
+})
+
+app.get('/newin',(req,res)=>{
+    res.render('../views/newin.ejs');
+
+})
+
+app.get('/newout',(req,res)=>{
+    res.render('../views/newout.ejs');
+
+})
+
+
 
     //15 configurar método register (action del form register)
 //como se va a usar bcriptjs se debe usar acá asinc-await
@@ -188,6 +206,45 @@ app.get('/newproduct',(req,res)=>{
     
     });
 
+        //post nueva factura
+    app.post('/invoice', async (req, res) => {        
+        const id_supplier = req.body.id_supplier;
+        const id_employee = req.body.id_employee;
+        const value = req.body.value;
+        const shape = req.body.shape;
+        const date = req.body.date;
+        const creator = req.body.creator;
+
+            //insertar datos Guardándolos en un objeto 
+        connection.query('INSERT INTO factura SET ?', {
+            id_proveedor: id_supplier,
+            id_documento : id_employee,
+            valor_factura: value,
+            forma: shape,
+            fecha_factura: date,                
+            creador_registro: creator
+        }, async (error, results) => {
+            if (error) {
+                console.log(error)
+            } else {
+                //configuracion de alerta de sweetalert
+                //debe haberser insertado el script en register
+
+                res.render('../views/invoice.ejs', {
+                    alert: true,
+                    alertTitle: "Factura",
+                    alertMessage: "¡Nuevo registro de factura!",
+                    alertIcon: "success",
+                    showConfirmButton: true,
+                    timer: 4000,
+                    ruta: 'invoice'
+                    //se referencian estos valores en el ejs register
+                });
+            }
+        })
+    
+    });
+
     //post nuevo producto
     app.post('/newproduct', async (req, res) => {
         //captura de campos (también puede ser crear un objeto y pasar los valores)
@@ -237,6 +294,9 @@ app.get('/newproduct',(req,res)=>{
             })
     
     });
+
+
+
 
 //16 config método autenticación(/auth en el action del ejs login)
 app.post('/auth', async (req, res) => {
