@@ -115,11 +115,20 @@ app.get('/product',(req,res)=>{
                         }else{
                             //console.log("inicio registros entrada producto**********")
                             console.log(resultep);  
-                            res.render('../views/products.ejs', {
-                                product: resultp,
-                                existence: resulte,
-                                in_product: resultep   
-                            });
+                            connection.query("SELECT * FROM salida_producto", (error, results) =>{
+                                if (error){
+                                    res.send(error)
+                                }else{
+                                    console.log(results);
+                                    res.render('../views/products.ejs', {
+                                        product: resultp,
+                                        existence: resulte,
+                                        in_product: resultep,
+                                        out_product: results   
+                                    });
+                                }
+                            })
+                            
                      
                         }
                     })
@@ -349,6 +358,53 @@ app.get('/newout',(req,res)=>{
             })    
     });
 
+    //post salida de productos
+    app.post('/newout', async (req, res) => {        
+        const id_product = req.body.id_product;
+        const concept = req.body.concept;
+        const cant = req.body.cant;
+        const price = req.body.price;
+        const duty = req.body.duty;
+        const creator = req.body.creator;
+        
+            connection.query('INSERT INTO salida_producto SET ?', {
+                id_producto: id_product,
+                concepto_salida : concept,
+                cantidad_salida: cant,
+                precio_venta: price,
+                responsable_salida: duty,                
+                creador_registro: creator
+            }, async (error, results) => {
+                if (error) {
+                    console.log(error)
+                } else {   
+                  
+                    connection.query("SELECT * FROM existencia", (error, resultex) =>{
+                        if (error){
+                            res.send(error)
+                        }else{                                                        
+                            console.log(resultex);  
+                            /*console.log(resultsp[resultsp.length-1].id_entrada_producto)
+                            connection.query('UPDATE existencia SET ?', {
+                                UPDATE `existencia` SET `cantidad_lote` = '15' WHERE `existencia`.`id_existencia` = 4;
+                            id_entrada_producto: resultsp[resultsp.length-1].id_entrada_producto,
+                            cantidad_lote: cant 
+                            })*/
+
+                            res.render('../views/newout.ejs', {
+                                alert: true,
+                                alertTitle: "Retiro",
+                                alertMessage: "¡Producto retirado del inventario!",
+                                alertIcon: "success",
+                                showConfirmButton: true,
+                                timer: 4000,
+                                ruta: 'newout' 
+                            });                     
+                        }
+                    });                   
+                }
+            })    
+    });
 
 //16 config método autenticación(/auth en el action del ejs login)
 app.post('/auth', async (req, res) => {
