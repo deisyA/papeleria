@@ -115,10 +115,13 @@
                             <th>Tipo</th>
                             <th>Tamaño</th>
                             <th>Existencias</th>
-                            
+                            <th>Ver</th>
                         </tr>
+
+                        
                         <% for (let i=0; i < product.length; i++) { %>
                             <tr>
+                                <% if (product[i].activo_producto == 1){ %>
                                 <td><%= product[i].id_producto %></td>
                                 <td><%= product[i].nombre_producto %></td>
                                 <td><%= product[i].referencia_producto %></td>
@@ -148,25 +151,12 @@
                                         <% } %>                                  
                                     <% } %> 
                                 </td>
-                                <td> <% let coincide={} %>
-                                    <% for (let j=0;j < in_product.length;j++) { %>
-                                        <% for (let k=0;k < existence.length;k++) { %>
-                                            <% if (in_product[j].id_entrada_producto === existence[k].id_entrada_producto ){ %>
-                                                <% for (let l=0;l < out_product.length;l++) { %>
-
-                                                    <% if (in_product[j].id_producto === out_product[l].id_producto){ %>
-                                                       <% coincide=out_product[l].id_salida_producto %> 
-                                                        <%= coincide %>
-                                                    <% } %>
-                                                    
-                                                <% } %> 
-                                                
-                                            <% } %> 
-                                        <% } %>
-                                    <% } %>   
+                                <td> 
+                                    <a href="/prod/<%= product[i].id_producto %>">Borrar</a>
                                 </td>
                             </tr>
-                                <% } %>              
+                                <% } %> 
+                        <% } %>              
                             
 
                         

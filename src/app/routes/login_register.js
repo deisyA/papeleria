@@ -97,6 +97,18 @@ app.get('/users',(req,res)=>{
     //
 })
 
+app.get('/user/:id_usuario', (req, res) =>{
+    const id_usuario = req.params.id_usuario;
+    
+    connection.query('UPDATE usuario SET activo_usuario = 0 WHERE id_usuario = ?', [id_usuario], (err,resul) =>{
+        if(err){
+            res.send(err)
+        }else{
+            res.redirect('/users')
+        }
+    })
+})
+
 
 app.get('/product',(req,res)=>{
     connection.query("SELECT * FROM producto", (err, resultp) =>{
@@ -137,6 +149,20 @@ app.get('/product',(req,res)=>{
         }
     })
 })
+
+app.get('/prod/:id_producto', (req, res) =>{
+    const id_producto = req.params.id_producto;
+    
+    connection.query('UPDATE producto SET activo_producto = 0 WHERE id_producto = ?', [id_producto], (err,resul) =>{
+        if(err){
+            res.send(err)
+        }else{
+            res.redirect('/product')
+        }
+    })
+})
+
+
 
 app.get('/newproduct',(req,res)=>{
     res.render('../views/newproduct.ejs');

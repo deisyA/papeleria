@@ -95,14 +95,17 @@
                         </tr>
                         <% for (let i=0; i < users.length; i++) { %>
                             <tr>
+                                <% if (users[i].activo_usuario == 1){ %>
                                 <td><%= users[i].id_usuario %></td>
                                 <td><%= users[i].nombre_usuario %></td>
                                 <td><%= users[i].id_rol %></td>
                                 <td><%= users[i].id_empleado %></td>
                                 <td><%= users[i].fecha %></td>
-                                
+                                <td> 
+                                    <a href="/user/<%= users[i].id_usuario %>">Borrar</a>
+                                </td>
                             </tr>
-        
+                            <% } %>    
                         <% } %>
                     </table>
 
