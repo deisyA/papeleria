@@ -128,18 +128,14 @@
                                 <td><%= product[i].peso %></td>
                                 <td><%= product[i].tipo_medida %></td>
                                 <td><%= product[i].tamaño %></td>
-                                <td><% let total_e = 0 %>
-                                    <% for (let j=0; j < in_product.length;j++) { %>
-                                        <% if (product[i].id_producto === in_product[j].id_producto){ %>                                            
-                                            <% for (let k=0; k < existence.length;k++){ %>
-                                                <% if (in_product[j].id_entrada_producto === existence[k].id_entrada_producto){ %>
-                                                    <% total_e = total_e + existence[k].cantidad_lote %>                                                
-                                                <% } %>                                              
-                                            <% } %>                                             
-                                        <% } %>                                        
-                                    <% } %>  <%= total_e %>
+                                    <td><% let total_ee = 0 %>
+                                        <% for (let j=0; j < in_product.length;j++) { %>
+                                            <% if (product[i].id_producto === in_product[j].id_producto){ %>                                            
+                                                <% total_ee = total_ee + in_product[j].cantidad_entrada %>  
+                                            <% } %>                                        
+                                        <% } %>  <%= total_ee %>
                                 </td>
-                                <% } %>                                
+                                <% } %>              
                             </tr>
 
                         
