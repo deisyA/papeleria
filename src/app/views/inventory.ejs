@@ -67,25 +67,28 @@
             <% } %>
             <thead>
                <tr>             
-                  <th scope="col" colspan="11">Existencias</th>
+                  <th scope="col" colspan="3">Existencias</th>
+                  <th scope="col" colspan="3">Entradas</th>
+                  <th scope="col" colspan="3">Salidas</th>
                </tr>
             </thead>
             <tr>
-               <td colspan="11"><%= extprod[0].existencias %></td>
+               <td colspan="3"><%= extprod[0].existencias %></td>
+               <td colspan="3"> <%= entradasprod[0].entradas %></td>
+               <td colspan="3"><%= salidasprod[0].salidas %></td>
             </tr>
-
+            
+               
+           
+            
          </tbody>      
       </table>
         
-      
+      <a href="/product">Volver</a>
 
 
 
-    <tr>
-        <th>Borrar</th>
-    </tr>
-    <tr>
-    </tr>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

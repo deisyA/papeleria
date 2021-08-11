@@ -31,6 +31,11 @@ module.exports = app => {
 
    })
 
+   
+   app.get('/actualizeinv',(req,res)=>{
+      res.render('../views/actualizeInv.ejs');
+   })
+
    app.get('/rigths',(req,res)=>{
       res.render('../views/rigths.ejs');
    })
@@ -141,33 +146,48 @@ app.get('/inventory',(req,res)=>{
       })
    })
 
-//sin detallar
+//sin detallar (check)
 //review all rows of one product 
-//query table entrada_producto no-active (change table)*****************
+//query table exsistencias para cantidad en inventario
    app.get('/product/:id_producto', (req, res) =>{
       const id_producto = req.params.id_producto;
       connection.query("SELECT * FROM producto WHERE id_producto = ?", [id_producto], (err, resul) =>{
          if (err){
                res.send(err)
          }else{
-               console.log(resul); 
-               connection.query("SELECT existencias FROM inventario WHERE id_producto = ?", [id_producto], (err, resul2) =>{
+            console.log(resul); 
+            connection.query("SELECT salidas FROM inventario WHERE id_producto = ?", [id_producto], (err, resul1) =>{
                if (err){
                      res.send(err)
-                }else{
-                       console.log(resul2);            
-                     res.render('../views/inventory.ejs', {
-                         extprod: resul2,
-                           detprod: resul                    
-                     });        
-                 }
-               })
-         }
-      })
+               }else{
+                  console.log(resul1); 
+                              connection.query("SELECT entradas FROM inventario WHERE id_producto = ?", [id_producto], (err, resul3) =>{
+               if (err){
+                     res.send(err)
+               }else{
+                  console.log(resul3);      
+                  connection.query("SELECT existencias FROM inventario WHERE id_producto = ?", [id_producto], (err, resul2) =>{
+               if (err){
+                     res.send(err)
+               }else{
+                  console.log(resul2);            
+                  res.render('../views/inventory.ejs', {
+                     extprod: resul2,
+                     detprod: resul,
+                     entradasprod: resul3,
+                     salidasprod: resul1                
+                  });        
+               }
+            })   
+               };        
+            })
+                  
+               };        
+            })
 
-            //  res.send("identificador de producto  "+ id_producto)
-         
-      
+            
+         }
+      }) //  res.send("identificador de producto  "+ id_producto)
    })
 
    app.get('/newproduct',(req,res)=>{
@@ -337,6 +357,81 @@ app.get('/newout',(req,res)=>{
 
 
     /****************************************funcional hasta aquí */
+    app.post('/actualizeinv', async (req, res) => {
+      //captura de campos (también puede ser crear un objeto y pasar los valores)
+      const id_product = req.body.id_product;
+      const id_type = req.body.id_type;
+      const cant = req.body.cant;
+      const value = req.body.value;
+      const value_u = req.body.value_u;
+
+          connection.query('INSERT INTO detalle_movimiento SET ?', {
+              id_producto: id_product,
+              id_tipo : id_type,
+              cantidad_detalle : cant,
+              valor: value,
+              valor_unitario : value_u,
+
+          }, async (error, results) => {
+              if (error) {
+                  console.log(error)
+              } else {  
+                  const id_producto = req.params.id_product;  
+                  connection.query("SELECT cantidad_detalle FROM detalle_movimiento WHERE id_tipo = 2 AND id_producto = ?",[id_product],                
+                  (error, resout) =>{
+                  if (error){
+                        res.send(error)
+                  }else{                                                        
+                     console.log(resout);
+                     let sumasalida = 0;
+                     for (let i=0; i<resout.length;i++){
+                        sumasalida += resout[i].cantidad_detalle
+                     }console.log(sumasalida)
+
+                     connection.query("UPDATE inventario SET salidas = ? WHERE id_producto = ? ",[sumasalida,id_product],(err, resultout)=>{
+                        if(err){
+                           resultout.send(err)
+                        }else{
+                           console.log("salida actualizada" + resultout)
+                           
+                        }
+                        }
+                     )
+
+                     //UPDATE inventario 
+                     //UPDATE `inventario` SET `existencias` = '20' WHERE `inventario`.`id_producto` = 16                                            
+                  }
+               });                       
+                  connection.query("SELECT cantidad_detalle FROM detalle_movimiento WHERE id_tipo = 1 AND id_producto = ?",[id_product],
+                    // id_producto: id_product  
+                  (error, resin) =>{
+                      if (error){
+                          res.send(error)
+                      }else{                                                        
+                          console.log(resin);  
+
+                          let sumaentrada = 0;
+                          for (let i=0; i<resin.length;i++){
+                             sumaentrada += resin[i].cantidad_detalle
+                          }console.log(sumaentrada)
+
+                          res.render('../views/actualizeInv.ejs', {
+                              alert: true,
+                              alertTitle: "Registro",
+                              alertMessage: "¡Acutalización de inventario!",
+                              alertIcon: "success",
+                              showConfirmButton: true,
+                              timer: 4000,
+                              ruta: 'actualizeinv' 
+                          }  ,{inventariosalida: resultout} 
+                          );                                 
+                      }
+                  });    
+                                 
+              }
+          })    
+  });
+
 
     //post nuevo producto al inventario
     app.post('/newin', async (req, res) => {
