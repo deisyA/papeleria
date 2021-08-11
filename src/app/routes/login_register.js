@@ -151,16 +151,16 @@ app.get('/inventory',(req,res)=>{
                res.send(err)
          }else{
                console.log(resul); 
-               //connection.query("SELECT * FROM entrada_producto WHERE id_producto = ?", [id_producto], (err, resul2) =>{
-               //  if (err){
-               //       res.send(err)
-               //  }else{
-                  //     console.log(resul2);            
+               connection.query("SELECT existencias FROM inventario WHERE id_producto = ?", [id_producto], (err, resul2) =>{
+               if (err){
+                     res.send(err)
+                }else{
+                       console.log(resul2);            
                      res.render('../views/inventory.ejs', {
-                  //         entprod: resul2,
+                         extprod: resul2,
                            detprod: resul                    
-                  //   });        
-               //   }
+                     });        
+                 }
                })
          }
       })
@@ -337,7 +337,7 @@ app.get('/newout',(req,res)=>{
 
 
     /****************************************funcional hasta aquí */
-    
+
     //post nuevo producto al inventario
     app.post('/newin', async (req, res) => {
         //captura de campos (también puede ser crear un objeto y pasar los valores)
