@@ -357,7 +357,7 @@ app.get('/newout',(req,res)=>{
 
 
     /****************************************funcional hasta aquí */
-    app.post('/actualizeinv', async (req, res) => {
+   app.post('/actualizeinv', async (req, res) => {
       //captura de campos (también puede ser crear un objeto y pasar los valores)
       const id_product = req.body.id_product;
       const id_type = req.body.id_type;
@@ -365,57 +365,45 @@ app.get('/newout',(req,res)=>{
       const value = req.body.value;
       const value_u = req.body.value_u;
 
-          connection.query('INSERT INTO detalle_movimiento SET ?', {
-              id_producto: id_product,
-              id_tipo : id_type,
-              cantidad_detalle : cant,
-              valor: value,
-              valor_unitario : value_u,
+      connection.query('INSERT INTO detalle_movimiento SET ?', {
+         id_producto: id_product,
+         id_tipo : id_type,
+         cantidad_detalle : cant,
+         valor: value,
+         valor_unitario : value_u,
+      }, async (error, results) => {
+         if (error) {
+            console.log(error)
+         } else {
 
-          }, async (error, results) => {
-              if (error) {
-                  console.log(error)
-              } else {  
-                  const id_producto = req.params.id_product;  
-                  connection.query("SELECT cantidad_detalle FROM detalle_movimiento WHERE id_tipo = 2 AND id_producto = ?",[id_product],                
-                  (error, resout) =>{
-                  if (error){
-                        res.send(error)
-                  }else{                                                        
-                     console.log(resout);
-                     let sumasalida = 0;
-                     for (let i=0; i<resout.length;i++){
-                        sumasalida += resout[i].cantidad_detalle
-                     }console.log(sumasalida)
-
-                     connection.query("UPDATE inventario SET salidas = ? WHERE id_producto = ? ",[sumasalida,id_product],(err, resultout)=>{
-                        if(err){
-                           resultout.send(err)
-                        }else{
-                           console.log("salida actualizada" + resultout)
-                           
-                        }
-                        }
-                     )
-
-                     //UPDATE inventario 
-                     //UPDATE `inventario` SET `existencias` = '20' WHERE `inventario`.`id_producto` = 16                                            
-                  }
-               });                       
-                  connection.query("SELECT cantidad_detalle FROM detalle_movimiento WHERE id_tipo = 1 AND id_producto = ?",[id_product],
-                    // id_producto: id_product  
-                  (error, resin) =>{
-                      if (error){
-                          res.send(error)
-                      }else{                                                        
-                          console.log(resin);  
-
-                          let sumaentrada = 0;
-                          for (let i=0; i<resin.length;i++){
-                             sumaentrada += resin[i].cantidad_detalle
-                          }console.log(sumaentrada)
-
-                          res.render('../views/actualizeInv.ejs', {
+            const id_producto = req.params.id_product;  
+            connection.query("SELECT existencias FROM inventario WHERE id_producto = ?",[id_product],(error, resultcant) =>{                
+               if (error){
+                     res.send(error)
+               }else{                                                        
+                  console.log("existencias  "+resultcant);
+            
+                  if(id_type ==2 ){
+                     connection.query("SELECT cantidad_detalle FROM detalle_movimiento WHERE id_tipo = 2 AND id_producto = ?",[id_product],(error, resout) =>{
+                        if (error){
+                              res.send(error)
+                        }else{                                                        
+                           console.log("salidas  "+resout);
+                           let sumasalida = 0;
+                           for (let i=0; i<resout.length;i++){
+                              sumasalida += resout[i].cantidad_detalle
+                           }console.log(sumasalida)
+                           let resta=resultcant[0].existencias-cant
+                           console.log(resta)
+                           connection.query("UPDATE inventario SET salidas = ?, existencias = ? WHERE id_producto = ? ",[sumasalida,resta,id_product],(err, resultout)=>{
+                              //UPDATE `inventario` SET `salidas` = 3, `existencias` = 20 WHERE `id_producto` = 9
+                              if(err){
+                                 res.send(err)
+                              }else{
+                                 console.log("salida actualizada, insertó: " + resultout)                              
+                              }
+                           })    
+                           res.render('../views/actualizeInv.ejs', {
                               alert: true,
                               alertTitle: "Registro",
                               alertMessage: "¡Acutalización de inventario!",
@@ -423,14 +411,48 @@ app.get('/newout',(req,res)=>{
                               showConfirmButton: true,
                               timer: 4000,
                               ruta: 'actualizeinv' 
-                          }  ,{inventariosalida: resultout} 
-                          );                                 
-                      }
-                  });    
-                                 
-              }
-          })    
-  });
+                           // ,{inventariosalida: resultout} 
+                           });                                        
+                        }
+                     });     
+                  }else if (id_type ==1) {                                    
+                     connection.query("SELECT cantidad_detalle FROM detalle_movimiento WHERE id_tipo = 1 AND id_producto = ?",[id_product],(error, resin) =>{
+                        if (error){
+                           res.send(error)
+                        }else{                                                        
+                           console.log("entradas  "+resin); 
+                           let sumaentrada = 0;
+                           for (let i=0; i<resin.length;i++){
+                              sumaentrada += resin[i].cantidad_detalle
+                           }console.log(sumaentrada)
+                           let suma=sumaentrada
+                           console.log(suma)
+                           connection.query("UPDATE inventario SET entradas = ?, existencias = ? WHERE id_producto = ? ",[sumaentrada,suma,id_product],(err, resultin)=>{
+                              if(err){
+                                 res.send(err)
+                              }else{
+                                 console.log("entrada actualizada, intertó:  " + resultin)                              
+                              }
+                           })
+                           res.render('../views/actualizeInv.ejs', {
+                              alert: true,
+                              alertTitle: "Registro",
+                              alertMessage: "¡Acutalización de inventario!",
+                              alertIcon: "success",
+                              showConfirmButton: true,
+                              timer: 4000,
+                              ruta: 'actualizeinv' 
+                           // ,{inventariosalida: resultout} 
+                           });                                 
+                        }
+                     });  
+                  }                         
+               }
+            });        
+         }
+      }
+      )
+   });
 
 
     //post nuevo producto al inventario
