@@ -1,2 +1,3 @@
 ## papeleria
-Primera edición web
+Funcional hasta el segundo avance
+
