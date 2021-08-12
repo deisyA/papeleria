@@ -63,7 +63,40 @@
             <tr>
                <td colspan="11"><%= detprod[i].palabras_clave %></td>
             </tr>
-            
+            <td><button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal<%= detprod[i].id_producto %>" data-whatever="@fat">Editar</button>
+                
+               <div class="modal fade" id="exampleModal<%= detprod[i].id_producto %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal-dialog" role="document">
+                   <div class="modal-content">
+                     <div class="modal-header">
+                       <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                       </button>
+                     </div>
+                     <div class="modal-body">
+                       <form method="POST" action="/edit/<%= detprod[i].id_producto %>">
+                         <div class="form-group">
+                            <!---->
+                           <label for="name" class="col-form-label">Nombre:</label>
+                           <input type="text" name="nombre_producto" class="form-control" id="name" value="<%= detprod[i].nombre_producto %>">
+                           
+                           <label for="ref" class="col-form-label">Referencia</label>-->
+                           <input type="text" name="ref" class="form-control" id="ref" value="<%= detprod[i].referencia_producto %>">
+                         
+                        </div>
+
+
+                           <div class="modal-footer">
+                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                               <input type="submit" class="btn btn-primary" value="Registrar">
+                           </div>
+                       </form>
+                     </div>
+                   </div>
+                 </div>
+               </div> 
+           </td>
             <% } %>
             <thead>
                <tr>             

@@ -355,8 +355,6 @@ app.get('/newout',(req,res)=>{
       });      
     });
 
-
-    /****************************************funcional hasta aquí */
    app.post('/actualizeinv', async (req, res) => {
       //captura de campos (también puede ser crear un objeto y pasar los valores)
       const id_product = req.body.id_product;
@@ -453,7 +451,22 @@ app.get('/newout',(req,res)=>{
       }
       )
    });
+    /****************************************funcional hasta aquí */
+   app.post('/edit/:id_producto', async(req,res) =>{
+      const id_producto = req.params.id_producto
+      //const nombre_producto = req.params.nombre_producto
+      const {ref}=req.body;
+      const nombre = req.body.nombre_producto;
+      //res.send("id  "+ id_producto + "   nombre  "+ nombre +ref)
 
+      connection.query('UPDATE producto SET nombre_producto = ?, referencia_producto = ? WHERE id_producto = ?',[nombre,ref,id_producto], (err,re)=>{
+         if(err){
+            res.send(err)
+      }else{
+            res.redirect('/product')
+      }
+      })
+   })
 
     //post nuevo producto al inventario
     app.post('/newin', async (req, res) => {
