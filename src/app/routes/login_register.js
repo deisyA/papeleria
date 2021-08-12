@@ -254,7 +254,7 @@ app.get('/newout',(req,res)=>{
                            alertMessage: "¡Nuevo usuario creado!",
                            alertIcon: "success",
                            showConfirmButton: true,
-                           timer: 1500,
+                           timer: 5000,
                            ruta: ''
                            //se referencian estos valores en el ejs register
                         });
@@ -266,8 +266,8 @@ app.get('/newout',(req,res)=>{
                   alertTitle: "Error",
                   alertMessage: "La contraseña no coincide",
                   alertIcon: "error",
-                  showConfirmButton: false,
-                  timer: 3500,
+                  showConfirmButton: true,
+                  timer: 5000,
                   ruta: 'register'
                   //se referencian estos valores en el ejs register
                });
@@ -345,7 +345,7 @@ app.get('/newout',(req,res)=>{
                   alertMessage: "¡Nuevo producto creado!",
                   alertIcon: "success",
                   showConfirmButton: true,
-                  timer: 4000,
+                  timer: 5000,
                   ruta: 'newproduct'
                });
                }
@@ -413,11 +413,11 @@ app.get('/newout',(req,res)=>{
                            })    
                            res.render('../views/actualizeInv.ejs', {
                               alert: true,
-                              alertTitle: "Registro",
+                              alertTitle: "Registro exitoso",
                               alertMessage: "¡Acutalización de inventario!",
                               alertIcon: "success",
                               showConfirmButton: true,
-                              timer: 4000,
+                              timer: 5000,
                               ruta: 'actualizeinv' 
                            // ,{inventariosalida: resultout} 
                            });                                        
@@ -472,7 +472,7 @@ app.get('/newout',(req,res)=>{
          if(err){
             res.send(err)
       }else{
-            res.redirect('/product/')
+            res.redirect('/product')
       }
       })
    })
