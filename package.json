@@ -4,7 +4,8 @@
   "description": "Descripción para Git",
   "main": "src/index.js",
   "scripts": {
-    "start": "src/",
+    "start": "node src/",
+    "dev": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
