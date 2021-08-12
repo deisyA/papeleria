@@ -84,12 +84,28 @@
                            <label for="ref" class="col-form-label">Referencia</label>-->
                            <input type="text" name="ref" class="form-control" id="ref" value="<%= detprod[i].referencia_producto %>">
                          
+                           <label for="trademark" class="col-form-label">Marca*</label>
+                           <input class="form-control" type="text" name="trademark" value="<%= detprod[i].marca_producto %>">
+                           <label for="color" class="col-form-label">Color</label>
+                           <input class="form-control" type="text" name="color" value="Color">
+                           <label for="presentation" class="col-form-label">Presentación</label>
+                           <input class="form-control" type="text" name="presentation" value="<%= detprod[i].presentacion %>">
+                           <label for="weigth" class="col-form-label">Peso</label>
+                           <input class="form-control" type="text" name="weigth" value="<%= detprod[i].peso %>">
+                           <label for="type" class="col-form-label">Tipo medida</label>
+                           <input class="form-control" type="text" name="type" value="<%= detprod[i].tipo_medida %>">
+                           <label for="size" class="col-form-label">Tamaño</label>
+                           <input class="form-control" type="text" name="size" value="<%= detprod[i].tamaño %>">
+                           <label for="description" class="col-form-label">Descripción</label>
+                           <input class="form-control" type="text" name="description" value="<%= detprod[i].descripcion_producto %>">
+                           <label for="words" class="col-form-label">Palabras clave</label>
+                           <input class="form-control" type="text" name="words" value="<%= detprod[i].palabras_clave %>">
                         </div>
 
 
                            <div class="modal-footer">
                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                               <input type="submit" class="btn btn-primary" value="Registrar">
+                               <input type="submit" class="btn btn-primary" value="Editar">
                            </div>
                        </form>
                      </div>

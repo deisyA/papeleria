@@ -453,17 +453,16 @@ app.get('/newout',(req,res)=>{
    });
     /****************************************funcional hasta aquí */
    app.post('/edit/:id_producto', async(req,res) =>{
-      const id_producto = req.params.id_producto
-      //const nombre_producto = req.params.nombre_producto
-      const {ref}=req.body;
+      const id_producto = req.params.id_producto      
+      const {ref,trademark,color,presentation, weigth,type,size,description,words}=req.body;
       const nombre = req.body.nombre_producto;
       //res.send("id  "+ id_producto + "   nombre  "+ nombre +ref)
 
-      connection.query('UPDATE producto SET nombre_producto = ?, referencia_producto = ? WHERE id_producto = ?',[nombre,ref,id_producto], (err,re)=>{
+      connection.query('UPDATE producto SET nombre_producto = ?, referencia_producto = ?, marca_producto = ?, color_producto = ?, presentacion = ?, peso = ?, tipo_medida = ?, tamaño = ?, descripcion_producto = ?, palabras_clave = ? WHERE id_producto = ?',[nombre,ref,trademark,color,presentation, weigth,type,size,description,words,id_producto], (err,re)=>{
          if(err){
             res.send(err)
       }else{
-            res.redirect('/product')
+            res.redirect('/product/')
       }
       })
    })
