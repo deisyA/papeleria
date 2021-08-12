@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <title>Detalle de producto</title>
+  </head>
+  <body>
+    <div class="card">
+        <div class="card-body">
+           <h2>
+              <%= detprod[0].nombre_producto.toUpperCase() %>
+            </h2>
+        </div>
+    </div>
+    <table class="table table-sm table-info">
+        <thead>
+          <tr> 
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>           
+            <th scope="col">Referencia</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Color</th>
+            <th scope="col">Presentación</th>
+            <th scope="col">Peso</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Tamaño</th>
+
+            <th scope="col">Fecha</th>
+            <th scope="col">Responsable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let i = 0; i < detprod.length; i++){ %>
+        <tr>
+            
+            <th scope="row"><%= detprod[i].id_producto %></th>
+            <td><%= detprod[i].nombre_producto %></td>
+            <td><%= detprod[i].referencia_producto %></td>
+            <td><%= detprod[i].marca_producto %></td>
+            <td><%= detprod[i].color_producto %></td>
+            <td><%= detprod[i].presentacion %></td>
+            <td><%= detprod[i].peso %></td>
+            <td><%= detprod[i].tipo_medida %></td>
+            <td><%= detprod[i].tamaño %></td>
+        </tr>
+          <thead>
+            <tr> 
+              <th scope="col" colspan="11">Descripción</th>              
+            </tr>
+          </thead>          
+            <tr>
+                <td colspan="11"><%= detprod[i].descripcion_producto %></td>
+            </tr>
+          <thead>
+            <tr>             
+              <th scope="col" colspan="11">Palabras clave</th>
+            </tr>
+          </thead>
+          <tr>
+            <td colspan="11"><%= detprod[i].palabras_clave %></td>
+          </tr>
+         
+          <% } %>
+        <th>Existencias</th>
+    <% for (let i=0; i < detprod.length; i++) { %>
+        <tr>
+            <% if (detprod[i].activo_producto == 1){ %>
+           
+            <td><% let total = 0 %>
+                <% for (let j=0; j < entprod.length;j++) { %>
+                    <% if (detprod[i].id_producto === entprod[j].id_producto){ %>                                            
+                        <% total = total + entprod[j].cantidad_entrada %>  
+                    <% } %>                                        
+                <% } %>  <%= total %>
+            </td> 
+            <td><button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Editar</button>
+                
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form method="POST" action="/edit/<%= detprod[i].id_producto %>">
+                          <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Recipient:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                          </div>
+                          <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Recipient:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                          </div>
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                                </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Registrar">
+                            </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+            </td>
+
+            <% } %> 
+            <% } %>     
+
+        </tr> 
+        </tbody>
+    
+    </table>
+         
+    <tr>
+        
+
+       
+        
+        <th>Borrar</th>
+    
+    </tr>
+    <tr>
+    </tr>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
