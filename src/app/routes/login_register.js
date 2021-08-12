@@ -145,6 +145,16 @@ app.get('/inventory',(req,res)=>{
          }
       })
    })
+   app.get('/delete/:id_producto', (req, res) =>{
+      const id_producto = req.params.id_producto;    
+      connection.query('UPDATE producto SET activo_producto = 0 WHERE id_producto = ?', [id_producto], (err,resul) =>{
+         if(err){
+               res.send(err)
+         }else{
+               res.redirect('/product')
+         }
+      })
+   })
 
 //sin detallar (check)
 //review all rows of one product 
